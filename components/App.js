@@ -1,4 +1,4 @@
-var contacts = [
+var contacts1 = [
   {
     id: 1,
     firstName: 'Jan',
@@ -30,7 +30,7 @@ var App = React.createClass({
     return (
       React.createElement('div', {className: 'app'},
         React.createElement(ContactForm, {contact: contactForm}),
-        React.createElement(Contacts, {items: contacts}, {})
+        React.createElement(Contacts, {items: contacts1}, {})
       )
     );
   }
