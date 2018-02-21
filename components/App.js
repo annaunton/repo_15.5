@@ -1,4 +1,4 @@
-App = React.createClass({
+    App = React.createClass({
 
 
 	getInitialState() {
