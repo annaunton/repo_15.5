@@ -16,13 +16,21 @@
     	this.setState({
       		loading: true  // 2.
     	});
-    	this.getGif(searchingText, function(gif) {  // 3.
-      		this.setState({  // 4
-        	loading: false,  // a
-        	gif: gif,  // b
-        	searchingText: searchingText  // c
-      		});
-    	}.bind(this));
+
+        this.getGif(searchingText).then(data => { 
+             var gif = {  // 5.
+                url: data.fixed_width_downsampled_url,
+                sourceUrl: data.url
+            };
+
+            this.setState({  // 4
+                loading: false,  // a
+                gif: gif,  // b
+                searchingText: searchingText  // c
+            });
+            
+            return gif;
+        });
   	},
 
   	getGif: function(searchingText) { 
@@ -35,25 +43,14 @@
                  
                 xhr.onload = function() {    
                     if (this.status === 200) {
-                        resolve(this.responseText);  
+                        resolve(JSON.parse(xhr.responseText).data); 
                     }
                 };
 
         xhr.open('GET', url);
         xhr.send();
-        }),
+        });
     },
-
-    getGif();
-    .then(responseText => {
-        var data = JSON.parse(xhr.responseText).data; // 4.
-        var gif = {  // 5.
-            url: data.fixed_width_downsampled_url,
-            sourceUrl: data.url
-        };
-        return gif;
-    };     
-
   
     render: function() {
 
